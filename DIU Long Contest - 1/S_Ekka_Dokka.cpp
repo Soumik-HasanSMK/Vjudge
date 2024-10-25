@@ -1,27 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long int
-#define db double
 
-bool func(int num, int cnt)
+bool isPowerOfTwo(ll n)
 {
-    for (int a = 2; a * a <= num; a++)
-    {
-        if (num % a == 0)
-        {
-            if (a % 2 == 0 && (num / a) % 2 != 0)
-            {
-                cout << "Case " << cnt << ": " << num / a << " " << a << endl;
-                return true;
-            }
-            else if (a % 2 != 0 && (num / a) % 2 == 0)
-            {
-                cout << "Case " << cnt << ": " << a << " " << num / a << endl;
-                return true;
-            }
-        }
-    }
-    return false;
+    return (n > 0 && (n & (n - 1)) == 0);
 }
 
 int main()
@@ -29,23 +12,26 @@ int main()
     int t;
     cin >> t;
     int cnt = 0;
+
     while (t--)
     {
         cnt++;
-        int n;
-        cin >> n;
-
-        if (n % 2 != 0 || n == 0)
+        ll W;
+        cin >> W;
+        if (W % 2 != 0 || isPowerOfTwo(W))
         {
             cout << "Case " << cnt << ": Impossible" << endl;
         }
         else
         {
-            bool found = func(n, cnt);
-            if (!found)
+            ll M = 1;
+            ll N = W;
+            while (N % 2 == 0)
             {
-                cout << "Case " << cnt << ": Impossible" << endl;
+                M *= 2;
+                N /= 2;
             }
+            cout << "Case " << cnt << ": " << N << " " << M << endl;
         }
     }
     return 0;
